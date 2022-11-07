@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>Lottery Scraping</title>
+        <meta charset="utf-8">
+        {% load bootstrap4 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery='full' %}
+        <script src="{% static 'extract/script.js' %}"></script>
+        <link rel="icon" href="{% static 'extract/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'extract/style.css' %}">
+        
+        {% block head %}
+        {% endblock  %}
+    </head>
+    
+    <body>
+        <div class="header">
+            <h4>〜宝くじ結果照合サイト〜</h4>
+        </div>
+
+        <div class="menu-bar">
+            <div id="for-loto6"><a href="{% url 'extract:loto6' %}">ロト6</a></div>
+        </div>
+        
+        <div class="content">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
