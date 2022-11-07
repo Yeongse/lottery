@@ -38,9 +38,58 @@ def scrape_loto6():
 
     return results
 
+def scrape_loto7():
+    # 初期設定
+    scrape_url = 'http://sougaku.com/loto7/data/list1/'
+    html_content = requests.get(scrape_url).content
+    soup = BeautifulSoup(html_content, 'html.parser')
+    population_data = soup.find('table', class_='bun_box2')
+
+    # 過去の全結果を配列に格納(要素の例: ['第3回', '1', '5', '15', '31', '36', '38', '13', 'C', '4：2', '126', '5：2', '139', '詳細表示'])
+    trs_list = []
+    for tr in population_data.find_all('tr'):
+        tr_list = []
+        for td in tr:
+            text = td.text.replace('\n','').replace('\t','')
+            if text != '':
+                tr_list.append(text)
+        # 仕切り行の配列の長さが短くてエラーが出てしまうので, あらかじめ省いておく
+        if len(tr_list) > 10:
+            trs_list.append(tr_list)
+
+    # 辞書の作成
+    results = {}
+    for tr in trs_list:
+        results[tr[0]] = [tr[i] for i in range(1, 10, 1)]
+
+    return results
+
+def scrape_miniloto():
+    # 初期設定
+    scrape_url = 'http://sougaku.com/miniloto/data/list1/'
+    html_content = requests.get(scrape_url).content
+    soup = BeautifulSoup(html_content, 'html.parser')
+    population_data = soup.find('table', class_='bun_box2')
+
+    # 過去の全結果を配列に格納(要素の例: ['第3回', '1', '5', '15', '31', '36', '38', '13', 'C', '4：2', '126', '5：2', '139', '詳細表示'])
+    trs_list = []
+    for tr in population_data.find_all('tr'):
+        tr_list = []
+        for td in tr:
+            text = td.text.replace('\n','').replace('\t','')
+            if text != '':
+                tr_list.append(text)
+        trs_list.append(tr_list)
+
+    # 辞書の作成
+    results = {}
+    for tr in trs_list:
+        results[tr[0]] = [tr[i] for i in range(1, 7, 1)]
+
+    return results
 
 def index(request):
-    return render(request, 'extract/index.html', {})
+    return HttpResponseRedirect(reverse('extract:loto6'))
 
 def loto6(request):
     if request.method == 'POST':
@@ -63,6 +112,58 @@ def loto6(request):
         })
     
     return render(request, 'extract/loto6.html', {
-        'choosed': None, 
+        'chosen': None, 
+        'results': None
+    })
+
+def loto7(request):
+    scrape_loto7()
+    if request.method == 'POST':
+        # 初期設定(スクレイピングによるデータの取得とPOST内容の確認)
+        results_all = scrape_loto7()
+        targets = request.POST.getlist('targets')
+        include = int(request.POST['include'])
+        targets_combinations = list(itertools.combinations(targets, include))
+
+        # ユーザが指定した要素を含む結果のみを格納した配列を作成(各要素はgeneration: 第n回とnumbers: [7個の数字]の辞書)
+        results_matched = []
+        for key in results_all.keys():
+            if is_matched(targets_combinations, results_all[key]):
+                results_matched.append({'generation': key, 'numbers': results_all[key]})
+
+        return render(request, 'extract/loto7.html', {
+            'chosen': targets, 
+            'include': include, 
+            'results': results_matched
+        })
+    
+    return render(request, 'extract/loto7.html', {
+        'chosen': None, 
+        'results': None
+    })
+
+def miniloto(request):
+    scrape_loto7()
+    if request.method == 'POST':
+        # 初期設定(スクレイピングによるデータの取得とPOST内容の確認)
+        results_all = scrape_miniloto()
+        targets = request.POST.getlist('targets')
+        include = int(request.POST['include'])
+        targets_combinations = list(itertools.combinations(targets, include))
+
+        # ユーザが指定した要素を含む結果のみを格納した配列を作成(各要素はgeneration: 第n回とnumbers: [7個の数字]の辞書)
+        results_matched = []
+        for key in results_all.keys():
+            if is_matched(targets_combinations, results_all[key]):
+                results_matched.append({'generation': key, 'numbers': results_all[key]})
+
+        return render(request, 'extract/miniloto.html', {
+            'chosen': targets, 
+            'include': include, 
+            'results': results_matched
+        })
+    
+    return render(request, 'extract/miniloto.html', {
+        'chosen': None, 
         'results': None
     })

@@ -1,7 +1,5 @@
 /* marginは上, 右, 下, 左 */
 
-
-/* 共通 */
 a {
     text-decoration: none;
 }
@@ -33,10 +31,7 @@ hr {
     color: white;
     background-color: royalblue;
 }
-/* 共通ここまで */
 
-
-/* layout */
 .header {
     color: black;
     margin-bottom: 5px;
@@ -72,7 +67,6 @@ hr {
     margin-left: 0.5vw;
     margin-right: 0.5vw;
 }
-/* layoutここまで */
 
 .number-input {
     width: 20vw;
@@ -81,5 +75,10 @@ hr {
 }
 
 .matched-number {
+    color: #ff0000;
+}
+
+.brand {
+    font-weight: bold;
     color: #ff0000;
 }

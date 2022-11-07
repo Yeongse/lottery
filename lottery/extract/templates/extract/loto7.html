@@ -2,10 +2,10 @@
 {% load crispy_forms_tags %}
 
 {% block body %}
-    <h5><span class="brand">ロト6</span>の照合画面です</h5>
+    <h5><span class="brand">ロト7</span>の照合画面です</h5>
     <p><small>以下のチェックボックスにチェックをつけた数字が当選番号に含まれていた回のデータが抽出されます. </small></p>
 
-    <form action="{% url 'extract:loto6' %}" method="post" class="need-check">
+    <form action="{% url 'extract:loto7' %}" method="post" class="need-check">
         {% csrf_token %}
         <div>
             <table class="table">
@@ -53,14 +53,6 @@
                     <td><input type="checkbox" class="checkbox-input" name="targets" value="35"> 35</td>
                     <td><input type="checkbox" class="checkbox-input" name="targets" value="36"> 36</td>
                     <td><input type="checkbox" class="checkbox-input" name="targets" value="37"> 37</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="38"> 38</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="39"> 39</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="40"> 40</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="41"> 41</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="42"> 42</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="43"> 43</td>
                 </tr>
             </table>
             <input type="number" class="number-input form-control form-number" name="include" min="1" max="1" value="1"> 個以上一致したものを抽出する
@@ -79,8 +71,8 @@
                 <thead>
                     <tr>
                         <th>回数</th>
-                        <th colspan="6">本数字</th>
-                        <th>ボーナス数字</th>
+                        <th colspan="7">本数字</th>
+                        <th colspan="2">ボーナス数字</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,6 +120,18 @@
                                 <td class="matched-number">{{ result.numbers.6 }}</td>
                             {% else %}
                                 <td>{{ result.numbers.6 }}</td>
+                            {% endif %}
+
+                            {% if result.numbers.7 in chosen %}
+                                <td class="matched-number">{{ result.numbers.7 }}</td>
+                            {% else %}
+                                <td>{{ result.numbers.7 }}</td>
+                            {% endif %}
+
+                            {% if result.numbers.8 in chosen %}
+                                <td class="matched-number">{{ result.numbers.8 }}</td>
+                            {% else %}
+                                <td>{{ result.numbers.8 }}</td>
                             {% endif %}
                         </tr>
                     {% endfor %}
