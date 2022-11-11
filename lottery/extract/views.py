@@ -107,7 +107,9 @@ def loto6(request):
 
         return render(request, 'extract/loto6.html', {
             'chosen': targets, 
+            'chosen_json': json.dumps(targets), 
             'include': include, 
+            'include_json': json.dumps(include), 
             'results': results_matched
         })
     
@@ -133,7 +135,9 @@ def loto7(request):
 
         return render(request, 'extract/loto7.html', {
             'chosen': targets, 
+            'chosen_json': json.dumps(targets), 
             'include': include, 
+            'include_json': json.dumps(include), 
             'results': results_matched
         })
     
@@ -159,7 +163,9 @@ def miniloto(request):
 
         return render(request, 'extract/miniloto.html', {
             'chosen': targets, 
+            'chosen_json': json.dumps(targets), 
             'include': include, 
+            'include_json': json.dumps(include),  
             'results': results_matched
         })
     

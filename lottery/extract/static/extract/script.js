@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkBoxes.forEach(checkBox => {
         checkBox.addEventListener('change', () => {
             let max_include = countCheckedBoxNum()
-            console.log(max_include)
             numberInput.max = max_include
         })
     })

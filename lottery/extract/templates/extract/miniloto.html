@@ -1,6 +1,21 @@
 {% extends 'extract/layout.html' %}
 {% load crispy_forms_tags %}
 
+{% block head %}
+    <script>
+        const chosens = JSON.parse('{{ chosen_json|safe }}');
+        const include = JSON.parse('{{ include_json|safe }}');
+        document.addEventListener('DOMContentLoaded', function() {
+            chosens.forEach((chosen) => {
+                const chosenBox = document.getElementById(chosen);
+                chosenBox.checked = true;
+            })
+            const numberInput = document.getElementById('number-input');
+            numberInput.value = include;
+        })
+    </script>
+{% endblock %}
+
 {% block body %}
     <h5><span class="brand">ミニロト</span>の照合画面です</h5>
     <p><small>以下のチェックボックスにチェックをつけた数字が当選番号に含まれていた回のデータが抽出されます. </small></p>
@@ -10,46 +25,46 @@
         <div>
             <table class="table">
                 <tr>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="1"> 1</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="2"> 2</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="3"> 3</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="4"> 4</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="5"> 5</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="6"> 6</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="7"> 7</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="8"> 8</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="9"> 9</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="10"> 10</td>
+                    <td><input type="checkbox" class="checkbox-input" id="1" name="targets" value="1"> 1</td>
+                    <td><input type="checkbox" class="checkbox-input" id="2" name="targets" value="2"> 2</td>
+                    <td><input type="checkbox" class="checkbox-input" id="3" name="targets" value="3"> 3</td>
+                    <td><input type="checkbox" class="checkbox-input" id="4" name="targets" value="4"> 4</td>
+                    <td><input type="checkbox" class="checkbox-input" id="5" name="targets" value="5"> 5</td>
+                    <td><input type="checkbox" class="checkbox-input" id="6" name="targets" value="6"> 6</td>
+                    <td><input type="checkbox" class="checkbox-input" id="7" name="targets" value="7"> 7</td>
+                    <td><input type="checkbox" class="checkbox-input" id="8" name="targets" value="8"> 8</td>
+                    <td><input type="checkbox" class="checkbox-input" id="9" name="targets" value="9"> 9</td>
+                    <td><input type="checkbox" class="checkbox-input" id="10" name="targets" value="10"> 10</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="11"> 11</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="12"> 12</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="13"> 13</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="14"> 14</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="15"> 15</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="16"> 16</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="17"> 17</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="18"> 18</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="19"> 19</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="20"> 20</td>
+                    <td><input type="checkbox" class="checkbox-input" id="11" name="targets" value="11"> 11</td>
+                    <td><input type="checkbox" class="checkbox-input" id="12" name="targets" value="12"> 12</td>
+                    <td><input type="checkbox" class="checkbox-input" id="13" name="targets" value="13"> 13</td>
+                    <td><input type="checkbox" class="checkbox-input" id="14" name="targets" value="14"> 14</td>
+                    <td><input type="checkbox" class="checkbox-input" id="15" name="targets" value="15"> 15</td>
+                    <td><input type="checkbox" class="checkbox-input" id="16" name="targets" value="16"> 16</td>
+                    <td><input type="checkbox" class="checkbox-input" id="17" name="targets" value="17"> 17</td>
+                    <td><input type="checkbox" class="checkbox-input" id="18" name="targets" value="18"> 18</td>
+                    <td><input type="checkbox" class="checkbox-input" id="19" name="targets" value="19"> 19</td>
+                    <td><input type="checkbox" class="checkbox-input" id="20" name="targets" value="20"> 20</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="21"> 21</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="22"> 22</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="23"> 23</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="24"> 24</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="25"> 25</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="26"> 26</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="27"> 27</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="28"> 28</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="29"> 29</td>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="30"> 30</td>
+                    <td><input type="checkbox" class="checkbox-input" id="21" name="targets" value="21"> 21</td>
+                    <td><input type="checkbox" class="checkbox-input" id="22" name="targets" value="22"> 22</td>
+                    <td><input type="checkbox" class="checkbox-input" id="23" name="targets" value="23"> 23</td>
+                    <td><input type="checkbox" class="checkbox-input" id="24" name="targets" value="24"> 24</td>
+                    <td><input type="checkbox" class="checkbox-input" id="25" name="targets" value="25"> 25</td>
+                    <td><input type="checkbox" class="checkbox-input" id="26" name="targets" value="26"> 26</td>
+                    <td><input type="checkbox" class="checkbox-input" id="27" name="targets" value="27"> 27</td>
+                    <td><input type="checkbox" class="checkbox-input" id="28" name="targets" value="28"> 28</td>
+                    <td><input type="checkbox" class="checkbox-input" id="29" name="targets" value="29"> 29</td>
+                    <td><input type="checkbox" class="checkbox-input" id="30" name="targets" value="30"> 30</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" class="checkbox-input" name="targets" value="31"> 31</td>
+                    <td><input type="checkbox" class="checkbox-input" id="31" name="targets" value="31"> 31</td>
                 </tr>
             </table>
-            <input type="number" class="number-input form-control form-number" name="include" min="1" max="1" value="1"> 個以上一致したものを抽出する
+            <input type="number" class="number-input form-control form-number" id="number-input" name="include" min="1" max="1" value="1"> 個以上一致したものを抽出する
         </div>
 
         <input type="submit" value="過去の結果と照合する" class="btn btn-primary" style="margin: 3px;">
