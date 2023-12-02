@@ -1,1 +1,2 @@
 # lottery
+Cloud Buildのテスト
